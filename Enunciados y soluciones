@@ -1,0 +1,585 @@
+1. Clase Res
+
+Crear a clase que modele unha res (grando vacuno) dunha explotación agraria. Esta clase estará baseada en outra clase Animal (o fin do exame), polo que haberá que recoller as propiedades e métodos propostas nesta clase:
+
+Atributos da clase Res:
+-Codigo_identificacion, cadea de caracteres: privado.
+-raza, cadea de caracteres: privado.
+-sexo, char:privado. Pode só ter 'M' ou 'F' representando os dous únicos posibles xéneros.
+-Peso, double: privado.
+-data_nacemento, LocalDate (información de métodos o final): Privado
+-pai, Res: privado.
+-nai, Res: privado.
+
+
+Constructor
+.Recibe como parámetros o código de identificación, raza, sexo, peso, data de nacemento, e referencia o obxecto que representao pai (os primeriros elementos poden estar referneciados por null-none, xa que se considerarían descoñecidos).
+
+Métodos públicos
+.Getters e setters das propiedades.
+.public boolean equals(Object o) ou__eq__(o:Res) -> bool: que devolta un valor booleano si o codigo_identificación e igual o doutra Res pasada por parámetro.
+.public String toString() ou__str__() -> str: Retorna unha cadea de caracteres que mostra os datos contidos nas propiedades da clase. VAlorar si modificar a clase Animal. O formato da cadea é o que sague:
+"Código: <codigo_identificación>
+-<raza>,<peso> kg, data de nacemetno: <data_nacemento>.
+-Pai: <Pai.codigo_identificacion>
+-Nai:<Nai:codigo_identificacion>
+
+Nota: <identificador> significa propiedades de clase.
+
+
+
+
+VERSIÓN 1 (primera versión de la solución)#########################################
+
+
+from datetime import date
+
+class Animal:
+    def __init__(self):
+        raise NotImplementedError("This class should not be instantiated 
+directly")
+
+    @property
+    def codigo_identificacion(self):
+        raise NotImplementedError("Subclasses must implement this 
+property")
+
+    @codigo_identificacion.setter
+    def codigo_identificacion(self, value):
+        raise NotImplementedError("Subclasses must implement this setter")
+
+    @property
+    def raza(self):
+        raise NotImplementedError("Subclasses must implement this 
+property")
+
+    @raza.setter
+    def raza(self, value):
+        raise NotImplementedError("Subclasses must implement this setter")
+
+    @property
+    def sexo(self):
+        raise NotImplementedError("Subclasses must implement this 
+property")
+
+    @sexo.setter
+    def sexo(self, value):
+        raise NotImplementedError("Subclasses must implement this setter")
+
+
+        @property
+    def peso(self):
+        raise NotImplementedError("Subclasses must implement this 
+property")
+
+    @peso.setter
+    def peso(self, value):
+        raise NotImplementedError("Subclasses must implement this setter")
+
+    @property
+    def data_nacimiento(self):
+        raise NotImplementedError("Subclasses must implement this 
+property")
+
+    @data_nacimiento.setter
+    def data_nacimiento(self, value):
+        raise NotImplementedError("Subclasses must implement this setter")
+
+class Res(Animal):
+    def __init__(self, codigo_identificacion: str, raza: str, sexo: str, 
+peso: float, data_nacimiento: date, pai=None, nai=None):
+        self.__codigo_identificacion = codigo_identificacion
+        self.__raza = raza
+        self.__sexo = sexo
+        self.__peso = peso
+        self.__data_nacimiento = data_nacimiento
+        self.__pai = pai
+        self.__nai = nai
+
+    @property
+    def codigo_identificacion(self):
+        return self.__codigo_identificacion
+
+    @codigo_identificacion.setter
+    def codigo_identificacion(self, value: str):
+        self.__codigo_identificacion = value
+
+    @property
+    def raza(self):
+        return self.__raza
+
+    @raza.setter
+    def raza(self, value: str):
+        self.__raza = value
+
+    @property
+    def sexo(self):
+        return self.__sexo
+
+    @sexo.setter
+    def sexo(self, value: str):
+        if value not in ['M', 'F']:
+            raise ValueError("Sexo must be 'M' (male) or 'F' (female)")
+        self.__sexo = value
+
+    @property
+    def peso(self):
+        return self.__peso
+
+    @peso.setter
+    def peso(self, value: float):
+        if value <= 0:
+            raise ValueError("Peso must be a positive number")
+        self.__peso = value
+
+    @property
+    def data_nacimiento(self):
+        return self.__data_nacimiento
+
+    @data_nacimiento.setter
+    def data_nacimiento(self, value: date):
+        self.__data_nacimiento = value
+
+    @property
+    def pai(self):
+        return self.__pai
+
+    @pai.setter
+    def pai(self, value):
+        self.__pai = value
+
+    @property
+    def nai(self):
+        return self.__nai
+
+    @nai.setter
+    def nai(self, value):
+        self.__nai = value
+
+    def __eq__(self, other: 'Res') -> bool:
+        if not isinstance(other, Res):
+            return False
+        return self.__codigo_identificacion == 
+other.__codigo_identificacion
+
+
+def __str__(self) -> str:
+        pai_code = f"{self.pai.codigo_identificacion}" if self.pai else 
+"Desconhecido"
+        nai_code = f"{self.nai.codigo_identificacion}" if self.nai else 
+"Desconhecido"
+        return (f"Código: {self.__codigo_identificacion}\n"
+                f"Raza: {self.__raza}, {self.__peso} kg, data de 
+nacimiento: {self.__data_nacimiento.strftime('%Y-%m-%d')}.\n"
+                f"Pai: {pai_code}\n"
+                f"Nai: {nai_code}")
+
+
+
+VERSIÓN 2 (segunda versión de la solución)#########################################
+
+from datetime import date
+
+class Animal:
+    def __init__(self):
+        raise NotImplementedError("Esta clase no debe ser instanciada 
+directamente")
+
+    @property
+    def codigo_identificacion(self):
+        raise NotImplementedError("Las subclases deben implementar esta 
+propiedad")
+
+    @codigo_identificacion.setter
+    def codigo_identificacion(self, value):
+        raise NotImplementedError("Las subclases deben implementar este 
+setter")
+
+    @property
+    def raza(self):
+        raise NotImplementedError("Las subclases deben implementar esta 
+propiedad")
+
+    @raza.setter
+    def raza(self, value):
+        raise NotImplementedError("Las subclases deben implementar este 
+setter")
+
+
+@property
+    def sexo(self):
+        raise NotImplementedError("Las subclases deben implementar esta 
+propiedad")
+
+    @sexo.setter
+    def sexo(self, value):
+        raise NotImplementedError("Las subclases deben implementar este 
+setter")
+
+    @property
+    def peso(self):
+        raise NotImplementedError("Las subclases deben implementar esta 
+propiedad")
+
+    @peso.setter
+    def peso(self, value):
+        raise NotImplementedError("Las subclases deben implementar este 
+setter")
+
+    @property
+    def data_nacimiento(self):
+        raise NotImplementedError("Las subclases deben implementar esta 
+propiedad")
+
+
+    @data_nacimiento.setter
+    def data_nacimiento(self, value):
+        raise NotImplementedError("Las subclases deben implementar este 
+setter")
+
+
+class Res(Animal):
+    def __init__(self, codigo_identificacion: str, raza: str, sexo: str, 
+peso: float, data_nacimiento: date, pai=None, nai=None):
+        self.__codigo_identificacion = codigo_identificacion
+        self.__raza = raza
+        self.__sexo = sexo
+        self.__peso = peso
+        self.__data_nacimiento = data_nacimiento
+        self.__pai = pai
+        self.__nai = nai
+
+
+    @property
+    def codigo_identificacion(self):
+        return self.__codigo_identificacion
+
+    @codigo_identificacion.setter
+    def codigo_identificacion(self, value: str):
+        self.__codigo_identificacion = value
+
+    @property
+    def raza(self):
+        return self.__raza
+
+    @raza.setter
+    def raza(self, value: str):
+        self.__raza = value
+
+    @property
+    def sexo(self):
+        return self.__sexo
+
+    @sexo.setter
+    def sexo(self, value: str):
+        if value not in ['M', 'F']:
+            raise ValueError("Sexo debe ser 'M' (macho) o 'F' (hembra)")
+        self.__sexo = value
+
+    @property
+    def peso(self):
+        return self.__peso
+
+    @peso.setter
+    def peso(self, value: float):
+        if value <= 0:
+            raise ValueError("Peso debe ser un número positivo")
+        self.__peso = value
+
+    @property
+    def data_nacimiento(self):
+        return self.__data_nacimiento
+
+    @data_nacimiento.setter
+    def data_nacimiento(self, value: date):
+        self.__data_nacimiento = value
+
+    @property
+    def pai(self):
+        return self.__pai
+
+    @pai.setter
+    def pai(self, value):
+        self.__pai = value
+
+    @property
+    def nai(self):
+        return self.__nai
+
+    @nai.setter
+    def nai(self, value):
+        self.__nai = value
+
+    def __eq__(self, other: 'Res') -> bool:
+        if not isinstance(other, Res):
+            return False
+        return self.__codigo_identificacion == 
+other.__codigo_identificacion
+
+
+def __str__(self) -> str:
+    pai_code = f"{self.pai.codigo_identificacion}" if self.pai else 
+"Desconocido"
+    nai_code = f"{self.nai.codigo_identificacion}" if self.nai else 
+"Desconocido"
+    return (f"Código: {self.__codigo_identificacion}\n"
+            f"Raza: {self.__raza}, peso: {self.__peso} kg, fecha de 
+nacimiento: {self.__data_nacimiento.strftime('%Y-%m-%d')}\n"
+            f"Pai: {pai_code}\n"
+            f"Nai: {nai_code}")
+
+
+
+2. Clase Explotacion
+
+Crear a clase que permita xestironar unha explotación gandeira coas seguintes propiedades:
+.cif, cadea de caracteres, privado.
+.nome, cadea de caracateres, privado.
+.animais, lista de obxectoos Animal, privado.
+
+Constructor
+.Getters e setters ( si son necesarios) para cif e nome.
+.Método public bollean engadirAnimal(Animal novoAnimal) ou engadir_Animal (n_animal: Animal)-> bool: método que comproba si o novo animal está na lista, si non está o engade. Rettorna un booleano en caso de ter éxito ou non na operación.
+.Método public void modificarAnimal (Animal animalMod) ou modificar_animal (animal_mod: Animal):
+método que recibe un obxecto Animal, busca na lista un animal co mesmo cdigo de identificación, e muda as propiedades do animal da lista (de idéntico código) cos valores do animal pasado por parámetro (animalMod).
+.Método public String mostrarAnimais(): Método que crea unha cadea cos datos das animais da lista.
+.Método public static void main(String argss[]) ou o equivalente en python, onde se crea un menú como o que segue:
+1. Engadir animal a lista. Esta opción permite pedir os datos e crear un novo animal.
+2. Modificar animal. Esta opción solicita os datos para modificar un animal.
+3. Mostrar animais da explotación. Mostra por pantalla os animais da explotación contidos na lista.
+4.Saír. SAe e remata o programa. 
+
+
+VERSIÓN 1 (primera versión de la solución)#########################################
+class Animal:
+    def __init__(self, cif, nombre):
+        self.cif = cif
+        self.nombre = nombre
+
+    @property
+    def cif(self):
+        return self._cif
+
+    @cif.setter
+    def cif(self, value):
+        if not isinstance(value, str) or len(value) != 9:
+            raise ValueError("El CIF debe ser una cadena de 9 caracteres")
+        self._cif = value
+
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value):
+        if not isinstance(value, str):
+            raise ValueError("El nombre debe ser una cadena de texto")
+        self._nombre = value
+
+
+class Explotation:
+    def __init__(self, cif=None, nombre=None):
+        self.cif = cif
+        self.nombre = nombre
+        self.animales = []
+
+    @property
+    def cif(self):
+        return self._cif
+
+    @cif.setter
+    def cif(self, value):
+        if not isinstance(value, str) or len(value) != 9:
+            raise ValueError("El CIF debe ser una cadena de 9 caracteres")
+        self._cif = value
+
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value):
+        if not isinstance(value, str):
+            raise ValueError("El nombre debe ser una cadena de texto")
+        self._nombre = value
+
+    def engadir_animal(self, n_animal):
+        if n_animal in self.animales:
+            return False
+        else:
+            self.animales.append(n_animal)
+            return True
+
+    def modificar_animal(self, animal_mod):
+        for i, animal in enumerate(self.animales):
+            if animal.cif == animal_mod.cif:
+                self.animales[i] = animal_mod
+                return True
+        return False
+
+    def mostrar_animais(self):
+        return "\n".join([f"CIF: {animal.cif}, Nombre: {animal.nombre}" 
+for animal in self.animales])
+
+
+def main():
+    explotacion = Exploitation()
+
+    while True:
+        print("\nMenú:")
+        print("1. Engadir animal a lista")
+        print("2. Modificar animal")
+        print("3. Mostrar animais da explotación")
+        print("4. Sair")
+
+        opcion = input("Selecciona una opción: ")
+
+        if opcion == '1':
+            cif = input("Introduce el CIF del animal: ")
+            nombre = input("Introduce el nombre del animal: ")
+            nuevo_animal = Animal(cif, nombre)
+            if explotacion.engadir_animal(nuevo_animal):
+                print("Animal añadido correctamente")
+            else:
+                print("El animal ya está en la lista")
+
+        elif opcion == '2':
+            cif = input("Introduce el CIF del animal a modificar: ")
+            for animal in explotacion.animales:
+                if animal.cif == cif:
+                    nombre_nuevo = input(f"Introduce el nuevo nombre para 
+{animal.nombre}: ")
+
+                    nuevo_animal = Animal(cif, nombre_nuevo)
+                    if explotacion.modificar_animal(nuevo_animal):
+                        print("Animal modificado correctamente")
+                    else:
+                        print("El animal no existe en la lista")
+                    break
+            else:
+                print("No se encontró el animal con ese CIF")
+
+        elif opcion == '3':
+            animales = explotacion.mostrar_animais()
+            if animales:
+                print("Animales en la explotación:")
+                print(animales)
+            else:
+                print("No hay animales en la explotación")
+
+        elif opcion == '4':
+            print("Saliendo del programa...")
+            break
+
+        else:
+            print("Opción no válida. Introduce un número entre 1 y 4.")
+
+
+if __name__ == "__main__":
+
+
+VERSIÓN 2 (segunda versión de la solución)#########################################
+
+class Animal:
+    def __init__(self, cif: str, nombre: str):
+        self.cif = cif
+        self.nombre = nombre
+
+    @property
+    def cif(self) -> str:
+        return self._cif
+
+    @cif.setter
+    def cif(self, value: str) -> None:
+        if not isinstance(value, str):
+            raise ValueError("El CIF debe ser una cadena")
+        self._cif = value
+
+    @property
+    def nombre(self) -> str:
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value: str) -> None:
+        if not isinstance(value, str):
+            raise ValueError("El nombre debe ser una cadena")
+        self._nombre = value
+
+class Explotacion:
+    def __init__(self, cif: str = "", nombre: str = ""):
+        self.cif = cif
+        self.nombre = nombre
+        self.animales = []
+
+    @property
+    def cif(self) -> str:
+        return self._cif
+
+    @cif.setter
+    def cif(self, value: str) -> None:
+        if not isinstance(value, str):
+            raise ValueError("El CIF debe ser una cadena")
+        self._cif = value
+
+    @property
+    def nombre(self) -> str:
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value: str) -> None:
+        if not isinstance(value, str):
+            raise ValueError("El nombre debe ser una cadena")
+        self._nombre = value
+
+    
+
+
+
+3.
+Clase ImportaciónAnimaisFicheiro.
+
+Crea no linguaxe de programación python, unha clase non intanciable, cun método estático, que permita importar animais dun ficheiro de texto mediante o método seguinte:
+.Importar_animais_fitch (ruta_fich: str) -> list: O método Animal. Cada liña do ficheiro de texto terá o formato que se mostra a continuación: "ES 10 02 1234 5678, Frisona, F, 21/10/2021, 205.34". Por cada liña leida, creará un obxecto Animal e o engadirá a lista. O método o rematar a lectura do ficheiro,  retorna a lista de obxectos Animal.
+
+Nota: utiliza o decorador @staticcmethod, para marcar o método como estático.
+
+
+VERSIÓN 1 Y ÚNICA VERSIÓN#########################################
+class ImportaciónAnimaisFichero:
+    @staticmethod
+    def importar_animais_fich(ruta_fich: str) -> list:
+        lista_animales = []
+        
+        try:
+            with open(ruta_fich, 'r') as ficheiro:
+                for liña in ficheiro:
+                    partes = liña.strip().split(', ')
+                    
+                    # Desempaquetar os datos
+                    especie, id_animal, _, nome, sexo, data_nacemento, 
+peso = partes
+                    
+                    # Crear un obxecto Animal e engadilo á lista
+                    animal = Animal(id_animal=id_animal,
+                                    nombre=nome,
+                                    sexo=sexo,
+                                    fecha_nacimiento=data_nacemento,
+                                    peso=peso)
+                    
+                    lista_animales.append(animal)
+        
+        except FileNotFoundError:
+            print(f"Erro: o ficheiro '{ruta_fich}' non existe.")
+        except Exception as e:
+            print(f"Erro inesperado: {e}")
+        
+        return lista_animales
+
+
+class Animal:
+    def __init__(self, id_animal, nombre, sexo, fecha_nacimiento, peso):
+        self.id_animal = id_animal
+        self.nombre = nombre
+        self.sexo = sexo
+        self.fecha_nacimiento = fecha_nacimiento
+        self.peso = peso
